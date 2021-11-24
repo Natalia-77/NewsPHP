@@ -1,1 +1,1 @@
-<?php require_once "connection_database.php"; ?>
+<?php include "connection_database.php"; ?>
