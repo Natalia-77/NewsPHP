@@ -1,3 +1,14 @@
+<?php
+if(isset($_POST['id'])) {
+    $fileToDelete = $basePath.$_POST['id'];
+    unlink($fileToDelete);
+}
+
+?>
+
+
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +27,7 @@
     <h1>Список новин</h1>
     <?php
     include "connection_database.php";
-    include "modal.php" ;
+    include "modal.php";
     $sql = "SELECT * FROM news";
     $reader = $dbh->query($sql);
     ?>
@@ -35,20 +46,26 @@
             echo "
         <tr>
             <th>{$row['id']}</th>
-            <td>{$row['name']}</td>
+            <td >{$row['name']}</td>
             <td>{$row['description']}</td>
             <td>
-                <img src='/images/{$row['image']}' alt='natalisha' width='100'/>
+                <img src='/images/{$row['image']}'
+                 alt='natalisha'                
+                  width='100'/>
             </td>
              <td>
                  <a class='btn' style='background-color:#4dff4d'
-                  href='editnews.php?id=${row["id"]}'>Edit  <i class='far fa-edit'></i>
+                  href='editnews.php?id=${row["id"]}'>Редагувати <i class='far fa-edit'></i>
               </td>
                <td>
-                <button  onclick='loadDeleteModal(${row["id"]}, `${row["name"]}`)' 
-                data-toggle='modal' 
-                data-target='#modalDelete'
-                class='btn btn-danger' >Delete  <i class='fas fa-trash-alt'></i>
+                 <a href='#' class='btn  btnDelete' style='background-color: #ff0000'
+                 id='delete'
+                  data-id='{$row['id']}' 
+                  data-name='{$row['name']}'
+                  data-image='{$row['image']}'
+                  value='{$row['image']} '
+                  
+                  >Видалити</a>
                 </button>
             </td>
         </tr>";
@@ -56,27 +73,42 @@
         ?>
         </tbody>
     </table>
-    <script >
-        function loadDeleteModal(id, name)
-        {
-           var res=document.getElementById('modalDelete')
-           res.append(`<div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Delete animal ${name}?</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <form action="deleteAnimal.php" method="post">
-                <input type='hidden' name='id' value='${id}'>
-                <button type="submit" name="delete_submit" class="btn btn-danger">Delete</button>
-            </form>
-        </div>`);
-        }
-    </script>
 
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/axios.min.js"></script>
-   </body>
+    <script>
+        const elemModal = document.querySelector('#modalDelete');
+        const modal = new bootstrap.Modal(elemModal, {});
+        window.addEventListener('load', function () {
+            const list = document.querySelectorAll(".btnDelete");
+            let removeId = 0; //id element delete
+            let item = '';
+            let path ='';
+            for (let i = 0; i < list.length; i++) {
+                list[i].addEventListener("click", function (e) {
+                    e.preventDefault();
+                    removeId = e.currentTarget.dataset.id;
+                    item = e.currentTarget.dataset.name;
+                    path = e.currentTarget.dataset.image;
+                    var res ='images/'+path;
+                    console.log(res);
+                    elemModal.querySelector('.context').innerHTML = '<h1>' + item + '</h1>';
+                    modal.show();
+                })
+            }
+
+            document.querySelector("#btnDeleteNews").addEventListener("click", function() {
+                const formData = new FormData();
+                formData.append("id", removeId);
+                axios.post("/delete.php", formData)
+                    .then(resp => {
+
+                        location.reload();
+                    });
+
+            });
+        });
+    </script>
+
+</body>
 </html>
