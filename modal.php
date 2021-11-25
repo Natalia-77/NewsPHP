@@ -1,7 +1,7 @@
 <div class="modal" id="modalDelete">
     <div class="modal-dialog">
         <div class="modal-content shadow" id="modalDeleteContent">
-            `<div class="modal-header">
+            <div class="modal-header">
                    <h5 class="modal-title" id="exampleModalLabel">Ви хочете справді видалити ?</h5>
                 <div class="context">
                 </div>
@@ -15,7 +15,7 @@
                                      id="btnDeleteNews"
                                      class="btn btn-danger">Видалити</button>
                          </form>
-                 </div>`
+                 </div>
         </div>
     </div>
 </div>

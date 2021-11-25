@@ -1,13 +1,3 @@
-<?php
-if(isset($_POST['id'])) {
-    $fileToDelete = $basePath.$_POST['id'];
-    unlink($fileToDelete);
-}
-
-?>
-
-
-
 
 <!doctype html>
 <html lang="en">
@@ -62,9 +52,7 @@ if(isset($_POST['id'])) {
                  id='delete'
                   data-id='{$row['id']}' 
                   data-name='{$row['name']}'
-                  data-image='{$row['image']}'
-                  value='{$row['image']} '
-                  
+                  data-image='{$row['image']}'                
                   >Видалити</a>
                 </button>
             </td>
