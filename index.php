@@ -48,7 +48,7 @@
             </td>
              <td>
                  <a class='btn' style='background-color:#4dff4d'
-                  href='editnews.php?id=${row["id"]}'>Редагувати <i class='far fa-edit'></i>
+                  href='edit.php?id=${row["id"]}'>Редагувати <i class='far fa-edit'></i>
               </td>
                <td>
                  <a href='#' class='btn  btnDelete' style='background-color: #ff0000'
