@@ -6,7 +6,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
     $sql = "SELECT `image` FROM `news` WHERE `Id` =" .$id;
     $data = $dbh->query($sql);
     $fileImage = $data->fetchAll()[0]["image"];
-    if(unlink($_SERVER['DOCUMENT_ROOT']. '/images/'.$fileImage)) {
+    $path= $_SERVER['DOCUMENT_ROOT']. '/images/'.$fileImage;
+    if(unlink($path)) {
         $sql = "DELETE FROM `news` WHERE `Id` =" .$id;
         $dbh->query($sql);
     }

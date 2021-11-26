@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,19 +20,23 @@
     $sql = "SELECT * FROM news";
     $reader = $dbh->query($sql);
     ?>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">id</th>
-            <th scope="col">Назва</th>
-            <th scope="col">Опис</th>
-            <th scope="col">Фото</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        foreach ($reader as $row) {
-            echo "
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-10">
+
+                <table class="table table-bordered table-striped mt-3">
+                    <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Назва</th>
+                        <th scope="col">Опис</th>
+                        <th scope="col">Фото</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    foreach ($reader as $row) {
+                        echo "
         <tr>
             <th>{$row['id']}</th>
             <td >{$row['name']}</td>
@@ -53,14 +56,16 @@
                   data-id='{$row['id']}' 
                   data-name='{$row['name']}'
                   data-image='{$row['image']}'                
-                  >Видалити</a>
-                </button>
-            </td>
+                  >Видалити</a>                
+            </td>          
         </tr>";
-        }
-        ?>
-        </tbody>
-    </table>
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/axios.min.js"></script>
@@ -71,26 +76,25 @@
             const list = document.querySelectorAll(".btnDelete");
             let removeId = 0; //id element delete
             let item = '';
-            let path ='';
+            let path = '';
             for (let i = 0; i < list.length; i++) {
                 list[i].addEventListener("click", function (e) {
                     e.preventDefault();
                     removeId = e.currentTarget.dataset.id;
                     item = e.currentTarget.dataset.name;
                     path = e.currentTarget.dataset.image;
-                    var res ='images/'+path;
-                    console.log(res);
+                    //var res ='images/'+path;
+                    //console.log(res);
                     elemModal.querySelector('.context').innerHTML = '<h1>' + item + '</h1>';
                     modal.show();
                 })
             }
 
-            document.querySelector("#btnDeleteNews").addEventListener("click", function() {
+            document.querySelector("#btnDeleteNews").addEventListener("click", function () {
                 const formData = new FormData();
                 formData.append("id", removeId);
                 axios.post("/delete.php", formData)
                     .then(resp => {
-
                         location.reload();
                     });
 

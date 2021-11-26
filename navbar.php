@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-link" href="/create.php">Додати новину</a>
-                <a class="nav-link" href="#">Pricing</a>
+                <a class="nav-link" href="#">Контакти</a>
             </div>
         </div>
     </div>
