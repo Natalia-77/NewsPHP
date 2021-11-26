@@ -31,8 +31,12 @@ include "connection_database.php";
         <div class="offset-2 col-md-8 mt-3">
             <h1 class="text-center">Редагувати новину</h1>
             <form enctype="multipart/form-data" method="post">
-                <input class="d-none" type="text" id="id" name="id" value=<?= $id ?>/>
-                <input class="d-none" type="text" id="oldimage" name="oldimage" value=<?= $imageOld ?>/>
+                <?php
+                echo "
+                <input class='d-none' type='text' id='id' name='id' value={$id} />
+                <input class='d-none' type='text' id='oldimage' name='oldimage' value={$imageOld} /> "
+                ?>
+
                 <div class="form-group mb-3">
                     <label class="form-label" for="name">Заголовок</label>
                     <?php
@@ -41,7 +45,9 @@ include "connection_database.php";
                 </div>
                 <div class="form-group mb-3">
                     <label class="form-label" for="description">Опис</label>
-                    <input type="text" id="description" value=<?= $descOld ?> name="description" class="form-control"/>
+                    <?php
+                    echo " <input type='text' id='description' value={$descOld} name='description' class='form-control'/>"
+                    ?>
                 </div>
                 <div class="form-group mb-3 d-flex justify-content-center">
                     <label class="form-label" for="image">
