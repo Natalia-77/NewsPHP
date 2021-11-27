@@ -34,7 +34,8 @@ include "connection_database.php";
                 <?php
                 echo "
                 <input class='d-none' type='text' id='id' name='id' value={$id} />
-                <input class='d-none' type='text' id='oldimage' name='oldimage' value={$imageOld} /> "
+                <input class='d-none' type='text' id='oldimage' name='oldimage' value={$imageOld} /> 
+                 <input class='d-none' type='text' id='delimage' name='delimage' value={$imageOld} /> "
                 ?>
 
                 <div class="form-group mb-3">
@@ -74,6 +75,7 @@ include "connection_database.php";
         var description = document.getElementById("description");
         var image = document.getElementById("image");
         var oldimage = document.getElementById("oldimage");
+        var delimage = document.getElementById("delimage");
 
         const file = document.getElementById('image');
         file.addEventListener('change', function (e) {
@@ -89,6 +91,7 @@ include "connection_database.php";
             formData.append('description', description.value);
             formData.append('image', image.files[0]);
             formData.append('oldimage',oldimage.value);
+            formData.append('delimage',delimage.value);
             axios.post("/edit_request.php", formData,{
                 headers: {
                     "Content-Type": "multipart/form-data"
